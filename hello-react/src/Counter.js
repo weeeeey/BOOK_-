@@ -6,20 +6,17 @@
 import { Component } from "react";
 
 class Counter extends Component {
-    constructor(props) {
-        // 클래스형 컴포넌트에서 constructor를 작성할때는 super()를 호출해야함
-        // super()가 호출되면 리액트의 Component클래스가 지닌 생성자 함수를 호출해줌
-        // this.state 값에 초깃값 설정(객체 형식이어야 함)
-        super(props);
-        this.state = {
-            number: 0,
-        };
-    }
+    // constructor을 사용하지 않고 state의 초깃값 설정 하는 법
+    state = {
+        number: 0,
+        fixedNumber: 250,
+    };
     render() {
-        const { number } = this.state;
+        const { number, fixedNumber } = this.state;
         return (
             <div>
-                <h1>{number}</h1>
+                <h1>클릭 수: {number}</h1>
+                <h2>바뀌지 않는 값: {fixedNumber}</h2>
                 <button
                     onClick={() => {
                         this.setState({ number: number + 1 });
