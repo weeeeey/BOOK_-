@@ -1,5 +1,5 @@
-const MyComponent = () => {
-    return <div style={{ fontSize: 10 }}>나의 새롭고 멋진 컴포넌트</div>;
+const MyComponent = (props) => {
+    return <div style={{ fontSize: 50 }}>나의 이름은 {props.name}</div>;
 };
 
 export default MyComponent;
