@@ -1,7 +1,7 @@
 import MyComponent from "./MyComponent";
 
 const App = () => {
-    return <MyComponent />;
+    return <MyComponent name="sdsd">리액트</MyComponent>;
 };
 
 export default App;
