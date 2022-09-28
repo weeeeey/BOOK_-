@@ -3,15 +3,10 @@ import "./App.css";
 
 function App() {
     const name = "리액트";
-    const style = {
-        backgroundColor: "black",
-        color: "aqua",
-        fontSize: "30px", //px라고 명명하고 싶으면 감싸줘야함
-        fontWeight: "bold",
-        padding: 16, // 단위 없이 안감싸주면 기본 단위인 px로 적용됨
-    };
-    return <div style={style}>{name}</div>;
-    // <div style={{backgruondColor:"black", color:"aqua"}}>{name}</div>
+
+    return <div className="react">{name}</div>;
+    // 기존 css에서는 클래스를 지정할때 class = 으로 했다면
+    // jsx 에서는 className 으로 지정
 }
 
 export default App;
