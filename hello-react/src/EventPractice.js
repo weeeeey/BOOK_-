@@ -1,20 +1,22 @@
+// input 여러개를 다루는 법
 import { Component } from "react";
 
 class EventPractice extends Component {
     state = {
+        username: "",
         message: "",
     };
-    // 임의 메서드로 만든 메서드를 따로 바인딩 없이 선언하는 방법(by 화살표 함수)
-
     handleChange = (e) => {
         this.setState({
-            message: e.target.value,
+            [e.target.name]: e.target.value,
+            // 객체 안에서 key를 []로 감싸면 그 안에 넣은 레퍼런스가 가리키는 실제 값이 키값으로 사용됨.
         });
     };
 
     handleClick = () => {
-        alert(this.state.message);
+        alert(this.state.username + ":" + this.state.message);
         this.setState({
+            username: "",
             message: "",
         });
     };
@@ -23,6 +25,14 @@ class EventPractice extends Component {
         return (
             <div>
                 <h1>이벤트 연습</h1>
+                <input
+                    type="text"
+                    name="username"
+                    // 요 name이 우리가 임의메서드에서 다룬 name
+                    placeholder="아무거나 입력하세요"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                />
                 <input
                     type="text"
                     name="message"
