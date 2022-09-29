@@ -4,30 +4,20 @@ class EventPractice extends Component {
     state = {
         message: "",
     };
+    // 임의 메서드로 만든 메서드를 따로 바인딩 없이 선언하는 방법(by 화살표 함수)
 
-    // 임의 메서드를 만들어서 전달하는 방법.
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        // 함수가 호출될 떄 this는 호출부에 따라 결정됨.
-        // 그래서 특정 HTML요소의 이벤트로 등록되는 과정에서 메서드와 this간 관계가 끊어질 수 있음.
-        // 이를 방지하기 위해 바인딩 과정을 거쳐줌
-        // 하지 않을시 this가 undefined를 가리키게 됨
-    }
-
-    handleChange(e) {
+    handleChange = (e) => {
         this.setState({
             message: e.target.value,
         });
-    }
+    };
 
-    handleClick() {
+    handleClick = () => {
         alert(this.state.message);
         this.setState({
             message: "",
         });
-    }
+    };
 
     render() {
         return (
