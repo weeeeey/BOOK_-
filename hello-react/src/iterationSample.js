@@ -11,6 +11,7 @@ const IterationSample = () => {
     const [nextId, setNextId] = useState(5);
 
     const onChange = (e) => setInputText(e.target.value);
+
     const onClick = () => {
         // push 대신에 concat 쓰는 이유
         // push를 사용하면 기존 배열에 추가하게 됨
@@ -23,7 +24,17 @@ const IterationSample = () => {
         setName(nextName);
         setInputText("");
     };
-    const nameList = names.map((name) => <li key={name.id}> {name.text} </li>);
+
+    const onRemove = (id) => {
+        const nextName = names.filter((name) => name.id !== id);
+        setName(nextName);
+    };
+    const nameList = names.map((name) => (
+        <li key={name.id} onDoubleClick={() => onRemove(name.id)}>
+            {" "}
+            {name.text}{" "}
+        </li>
+    ));
     return (
         <div>
             <input value={inputText} onChange={onChange} />
