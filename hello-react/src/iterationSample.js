@@ -1,18 +1,36 @@
-// map
-// arr.map(callback,[thisArg])
-// callback의 파라미터 => currentValue, index, array
-// thisArg:(선택항목) 콜백 함수 내부에서 사용할 this 레퍼런스
-
-// key값
-// 리액트에서 키는 컴포넌트 배열을 랜더링 할 때 어떤 원소에 변동이 있는지 알기 위해 사용
-// 키 값은 언제나 유일무이
-// map 함수에 전달되는 콜백 함수의 인수인 index값을 사용하면 됨
+import { useState } from "react";
 
 const IterationSample = () => {
-    const names = ["aa", "bb", "cc"];
-    const nameList = names.map((name, index) => <li key={index}>{name}</li>);
-    // 키값으로 인덱스를 이용 (고유한 값이 없을때만 인덱스 이용)
-    return <ul>{nameList}</ul>;
+    const [names, setName] = useState([
+        { id: 1, text: "aa" },
+        { id: 2, text: "bb" },
+        { id: 3, text: "cc" },
+        { id: 4, text: "dd" },
+    ]);
+    const [inputText, setInputText] = useState("");
+    const [nextId, setNextId] = useState(5);
+
+    const onChange = (e) => setInputText(e.target.value);
+    const onClick = () => {
+        // push 대신에 concat 쓰는 이유
+        // push를 사용하면 기존 배열에 추가하게 됨
+        // 리액트는 기존 상태를 그대로 두고 새로운 값으로 설정(불변성 유지) 해야 하므로 concat 사용
+        const nextName = names.concat({
+            id: nextId,
+            text: inputText,
+        });
+        setNextId(nextId + 1);
+        setName(nextName);
+        setInputText("");
+    };
+    const nameList = names.map((name) => <li key={name.id}> {name.text} </li>);
+    return (
+        <div>
+            <input value={inputText} onChange={onChange} />
+            <button onClick={onClick}>추가</button>
+            <ul>{nameList}</ul>
+        </div>
+    );
 };
 
 export default IterationSample;
