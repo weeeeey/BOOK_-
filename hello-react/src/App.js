@@ -1,9 +1,9 @@
-import ValidationSample from "./ValidationSample";
-import RefSample from "./RefSample";
+import { Component } from "react";
+import IterationSample from "./iterationSample";
 
-class App extends ValidationSample {
+class App extends Component {
     render() {
-        return <ValidationSample />;
+        return <IterationSample />;
     }
 }
 export default App;
