@@ -31,8 +31,7 @@ const IterationSample = () => {
     };
     const nameList = names.map((name) => (
         <li key={name.id} onDoubleClick={() => onRemove(name.id)}>
-            {" "}
-            {name.text}{" "}
+            {name.text}
         </li>
     ));
     return (
