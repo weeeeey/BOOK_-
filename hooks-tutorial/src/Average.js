@@ -1,7 +1,8 @@
-import { useState, useMemo } from "react";
-// useMemo는 렌더링 하는 과정에서 특정 값이 바뀌었을때만 연산을 수행하고,
-// 원하는 값이 변하지 않았다면 이전에 연산했던 결과를 다시 사용하는 방식
-
+import { useState, useMemo, useCallback } from "react";
+// useCallback 은 useMemo와 비슷한 함수
+// 주로 렌더링 성능 최적화 할 때 사용 (만들어놨던 함수를 재사용 할 수 있음)
+// useCallback 이 없다면 onChange와 onInsert 함수는 리렌더링 될때마다 새로 만들어진 함수를 사용하게 됨
+// useCallback 첫번째 인자로는 생성하고 싶은 함수, 두번쨰 인자에는 배열
 const getAverage = (numbers) => {
     console.log("평균값 계산 중");
     if (numbers.length === 0) return 0;
@@ -12,20 +13,20 @@ const getAverage = (numbers) => {
 const Average = () => {
     const [list, setList] = useState([]);
     const [number, setNumber] = useState("");
-
-    const onChange = (e) => {
+    // 컴포넌트가 처음 렌더링 될때만 함수 생성(빈 배열을 인자로 줬을 경우)
+    // 기존 값을 조회하지 않고 바로 설정하기 때문에 빈 배열 넘겨줌
+    const onChange = useCallback((e) => {
         setNumber(e.target.value);
-    };
-    const onInsert = (e) => {
+    }, []);
+    // number 또는 list (인자로 넘겨준 것들) 가 바뀌었을때만 함수 생성
+    // 기존의 number와 list를 조회해서 nextList를 수행하기 때문에 인자로 넣어줌
+    const onInsert = useCallback(() => {
         const nextList = list.concat(parseInt(number));
         setList(nextList);
         setNumber("");
-    };
+    }, [number, list]);
 
     const avg = useMemo(() => getAverage(list), [list]);
-    // useMemo를 사용하지 않았다면 input에 숫자 하나하나 입력할때마다 평균값이 계산됨
-    // useMemo로 인해 특정 값이 바뀌었을때만 연산 실행(최적화)
-    // list 가 업데이트 됐을때만 평균값 함수 실행
     return (
         <div>
             <input value={number} onChange={onChange} />
