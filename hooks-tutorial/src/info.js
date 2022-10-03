@@ -1,32 +1,35 @@
-import { useState, useEffect } from "react";
+import { useReducer } from "react";
+// 컴포넌트 상태 관리를 위해 가장 많이 쓰는건 useState이다
+// 좀더 복잡한 상태 관리가 필요할때 리듀서 사용
+// reducer는 이전 상태와 action을 합쳐, 새로운 state를 만드는 조작
+function reducer(state, action) {
+    return {
+        ...state,
+        [action.name]: action.value,
+    };
+}
 
 const Info = () => {
-    const [name, setName] = useState("");
-    const [nickname, setNickname] = useState("");
-    useEffect(() => {
-        console.log("렌더링 완료");
-        console.log(name);
-        return () => {
-            console.log("cleanup");
-            console.log(name);
-        };
-        // return() : cleanup(뒷정리 함수)은 언마운트 되기 전이나 업데이특 직전 수행하고 싶은걸 보여줌
-        // 언마운트 되기 전에만 수행하고 싶으면 두번째 인자에 빈배열 넣으면 됨
-    }, [name]);
-    // useEffect 두번째 인자로 빈 배열을 넘겨주면 처음 렌더링 될때만 나오고 그 뒤로 안나옴
-    // 특정 값이 업데이트 될때만 실행하고 싶을때는 두번째 파라미터에 전달되는 배열에 검사하고 싶은 값을 넣어주면 됨
-    const onChangeName = (e) => {
-        setName(e.target.value);
-    };
-    const onChangeNickname = (e) => {
-        setNickname(e.target.value);
+    // state: 컴포넌트에서 사용할 상태
+    // dispatch: 첫번째 인자인 reducer 함수 실행. 컴포넌트 내에서 state의 업데이트 위해 사용하는 함수
+    // reducer: 컴포넌트 외부에서 state를 업데이트 하는 함수. (dispatch 함수에 의해 실행 됨)
+    // 현재 state,action을 인자로 받아, 기존의 state를 대체하여 새로운 state를  반환
+    // action 객체에는 어떤 행동인지를 나타내는 type 속성과 관련 데이터 payload가 있음
+    // 초기 state
+    const [state, dispatch] = useReducer(reducer, {
+        name: "",
+        nickname: "",
+    });
+    const { name, nickname } = state;
+    const onChange = (e) => {
+        dispatch(e.target);
     };
 
     return (
         <div>
             <div>
-                <input value={name} onChange={onChangeName} />
-                <input value={nickname} onChange={onChangeNickname} />
+                <input name="name" value={name} onChange={onChange} />
+                <input name="nickname" value={nickname} onChange={onChange} />
             </div>
             <div>
                 <div>
