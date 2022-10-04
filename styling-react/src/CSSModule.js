@@ -1,4 +1,4 @@
-import styles from "./CSSModule.module.css";
+import styles from "./CSSModule.module.scss";
 const CSSModule = () => {
     return (
         // 두개 이상의 클래스를 적용시킬려면 백틱 사용해서 이런식으로
