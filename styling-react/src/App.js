@@ -4,13 +4,13 @@
 // .scss가 우리가 아는 css와 문법이 비슷해서 이걸 사용할거
 
 import { Component } from "react";
-import CSSModule from "./CSSModule";
+import StyledComponent from "./StyledComponent";
 
 class App extends Component {
     render() {
         return (
             <div>
-                <CSSModule />
+                <StyledComponent />
             </div>
         );
     }
