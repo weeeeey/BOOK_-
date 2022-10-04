@@ -19,3 +19,23 @@
     font-weight: 800;
     color: aqua;
 }
+
+/* 라이브러리 classnames  */
+/* yarn add classnames  */
+/* 
+import classnames from 'classnames';
+
+classNames('one','two'); =>'one two'
+classNames('one',{two: true}); =>'one two'
+classNames('one',{two: false}); =>'one'
+classNames('one',['two','three']); =>'one two three'
+
+const myClass = 'hello';
+classNames('one',myClass, {myCondition:true}); =>'one hello myCondition'
+
+const MyComponent = ({highlighted, theme}) =>(
+    <div className={classNames('MyComponent',{highlighted},theme)}>Hello</div>
+) 
+*/
+/* highlighted 값이 true라면 hightlighted 클래스가 적요되고 false면 적용x */
+/* theme로 전달받는 문자열은 내용 그대로 클래스에 적용됨 */
