@@ -538,6 +538,7 @@ module.exports = function (webpackEnv) {
                                             paths.appSrc + "/styles",
                                         ],
                                     },
+                                    additionalData: "@import 'utils';",
                                 },
                             }),
 

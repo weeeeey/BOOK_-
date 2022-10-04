@@ -1,7 +1,15 @@
-@import "utils.scss";
+@import "./styles/utils";
+@import "~include-media/dist/include-media"; //반응형 디자인을 쉽게 만들어줌
+@import "~open-color/open-color"; //매우 편리한 색상 팔레트인
+// 물결 표시는 자동으로 node_module 폴더로 넘어가게함.
+// 찾고자하는 scss파일 경로는 공식 메뉴얼에서 알려주지 않을떄가 많으니 직접 경로 찾아야함
 
 .SassComponent {
     display: flex;
+    background: $oc-gray-2;
+    @include media("<768px") {
+        background: $oc-gray-9;
+    }
     .box {
         background: red;
         cursor: pointer;
