@@ -53,6 +53,7 @@ const App = () => {
         (id) => {
             setData(
                 produce(data, (draft) => {
+                    // splice(n,m) 배열의 n번쨰부터 시작해서 m개를 잘라줌
                     draft.array.splice(
                         draft.array.findIndex((info) => info.id === id),
                         1
