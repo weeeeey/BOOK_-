@@ -44,6 +44,18 @@ const App = () => {
     const onRemove = useCallback(
         (id) => {
             setTodos(todos.filter((todo) => todo.id !== id));
+            // 내가 전달한 id와 같지 않아야 true, 같으면 false가 되어서 필터로 걸러져서 지워짐
+        },
+        [todos]
+    );
+
+    const onToggle = useCallback(
+        (id) => {
+            setTodos(
+                todos.map((todo) =>
+                    todo.id === id ? { ...todo, checked: !todo.checked } : todo
+                )
+            );
         },
         [todos]
     );
@@ -51,7 +63,11 @@ const App = () => {
         <div>
             <TodoTemplate>
                 <TodoInsert onInsert={onInsert} />
-                <TodoList todos={todos} onRemove={onRemove} />
+                <TodoList
+                    todos={todos}
+                    onRemove={onRemove}
+                    onToggle={onToggle}
+                />
             </TodoTemplate>
         </div>
     );

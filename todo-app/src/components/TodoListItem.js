@@ -6,13 +6,16 @@ import {
 import "./TodoListItem.scss";
 import cn from "classnames";
 
-const TodoListItem = ({ todo, onRemove }) => {
+const TodoListItem = ({ todo, onRemove, onToggle }) => {
     // todo에 담겨진 것들과 변수명이 같아야 받아올 수 있음
     const { id, text, checked } = todo;
 
     return (
         <div className="TodoListItem">
-            <div className={cn("checkbox", { checked })}>
+            <div
+                className={cn("checkbox", { checked })}
+                onClick={() => onToggle(id)}
+            >
                 {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
                 <div className="text">{text}</div>
             </div>
