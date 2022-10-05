@@ -2,10 +2,8 @@ import TodoInsert from "./components/TodoInsert";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoList from "./components/TodoList";
 import { useReducer, useCallback, useRef } from "react";
-// 현재 프로젝트에서는 todos 배열이 업데이트 되면 onToggle과 onRemove 함수도 새롭게 바뀐다.
-// 배열 상태 업뎃 과정에서 최산 todos를 참조하기 때문
-//[해결법] 1.useState의 함수형 업뎃 기능 사용  or 2. useReducer 사용
-// (둘다 성능 비슷함)
+// 눈에 보이는 부분만 렌더링 하고 이외 부분은 렌더링 하지 않고 크기만 차지하게끔 하는 방법
+// react-virtualized
 
 function createBulkTodos() {
     const arr = [];
@@ -37,8 +35,8 @@ function todoReducer(todos, action) {
 const App = () => {
     const [todos, dispatch] = useReducer(
         todoReducer,
-        undefined, //초기 상태
-        createBulkTodos //초기 상태를 만들어 주는 함수(맨 처음 렌더링 될때만 함수 호출)
+        undefined,
+        createBulkTodos
     );
     const nextId = useRef(4);
 
