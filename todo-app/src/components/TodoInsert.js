@@ -20,6 +20,7 @@ const TodoInsert = ({ onInsert }) => {
     return (
         // onSubmit 함수가 호출되면, props로 받아 온 onInsert 함수에 현재 value 값을 파라미터로 넣어서 호출하고,
         // 현재 value 값을 초기화한다.(onSubmit 대신에 버튼의 onClick 이벤트로도 처리 가능)
+        // onSubmit를 만든 이유는 input에서 엔터를 눌렀을때도 처리 할 수 있음
         <form className="TodoInsert" onSubmit={onSubmit}>
             <input
                 placeholder="할 일을 입력하세요"
