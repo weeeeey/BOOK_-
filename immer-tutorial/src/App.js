@@ -1,36 +1,95 @@
-// produce 함수는 두가지 파라미터를 받음
-// produce(originalstate, fun)
-// 첫번째는 수정하고 싶은 state, 두번째는 state를 어떻게 업뎃할지 정의하는 함수
-// 두번째 함수 내부에서 원하는 값을 변경하면, produce 함수가 불변성 유지를 대신 하면서 새로운 상태 생성
+import { useRef, useCallback, useState } from "react";
 import produce from "immer";
+// produce를 사용하면 객체 안에 있는 값을 직접 수정하거나, 배열에 직접적인 변화를 일으키는
+// push와 slice등의 함수를 사용해도 무방함
+// onRemove 같은 경우 filter가 더 깔끔할 수 있음.
+// 불변성 유지 코드가 깔끔하지 않을 경우 produce 사용한다.
 
-const originalState = [
-    {
-        id: 1,
-        todo: "전개 연산자와 배열 내장 함수로 불변성 유지하기",
-        checked: true,
-    },
-    {
-        id: 2,
-        todo: "immer로 불변성 유지하기",
-        checked: false,
-    },
-];
-
-const nextState = produce(originalState, (draft) => {
-    // id기 2인 항목의 checked 값을 true로 설정
-    const todo = draft.find((t) => t.id === 2);
-    todo.checked = true;
-
-    // 배열에 새로운 데이터 추가
-    draft.push({
-        id: 3,
-        todo: "일정 관리 앱에 immer 적용하기",
-        checked: false,
+const App = () => {
+    const nextId = useRef(1);
+    const [form, setForm] = useState({ name: "", username: "" });
+    const [data, setData] = useState({
+        array: [],
+        uselessValue: null,
     });
-    // id=1 인 항목을 제거하기
-    draft.splice(
-        draft.findIndex((t) => t.id === 1),
-        1
+
+    //input 수정을 위한 함수
+    const onChange = useCallback(
+        (e) => {
+            const { name, value } = e.target;
+            setForm(
+                produce(form, (draft) => {
+                    draft[name] = value;
+                })
+                // 전개 연산자(...) 필요 없이 produce로 만져줌
+            );
+        },
+        [form]
     );
-});
+    // form 등록 함수
+    const onSubmit = useCallback(
+        (e) => {
+            e.preventDefault();
+            const info = {
+                id: nextId.current,
+                name: form.name,
+                username: form.username,
+            };
+            // arr에 새항목 등록
+            setData(
+                produce(data, (draft) => {
+                    draft.array.push(info);
+                })
+            );
+            setForm({
+                name: "",
+                username: "",
+            });
+            nextId.current += 1;
+        },
+        [data, form.name, form.username]
+    );
+    const onRemove = useCallback(
+        (id) => {
+            setData(
+                produce(data, (draft) => {
+                    draft.array.splice(
+                        draft.array.findIndex((info) => info.id === id),
+                        1
+                    );
+                })
+            );
+        },
+        [data]
+    );
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <input
+                    name="username"
+                    placeholder="아이디"
+                    value={form.username}
+                    onChange={onChange}
+                />
+                <input
+                    name="name"
+                    placeholder="이름"
+                    value={form.name}
+                    onChange={onChange}
+                />
+                <button type="submit">등록</button>
+            </form>
+            <div>
+                <ul>
+                    {data.array.map((info) => (
+                        <li key={info.id} onClick={() => onRemove(info.id)}>
+                            {info.username} ({info.name})
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default App;
