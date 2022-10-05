@@ -1,7 +1,9 @@
 import TodoInsert from "./components/TodoInsert";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoList from "./components/TodoList";
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
+// props로 전달해야 할 함수를 만들 때는 useCallback 으로 감사는 것을 습관화 하기(컴포넌트 성능 최적화)
+// 새로운 객체 만들때마다 id에 +1을 해줄거임. 그런데 id 값은 렌더링 되는 정보가 아니기 때문에 useRef 사용할거
 
 const App = () => {
     const [todos, setTodos] = useState([
@@ -21,10 +23,27 @@ const App = () => {
             checked: false,
         },
     ]);
+
+    // 고유값으로 사용될 id
+    // ref를 사용하여 변수 담기(리렌더링 되면 안되니)
+    const nextId = useRef(4);
+
+    const onInsert = useCallback(
+        (text) => {
+            const todo = {
+                id: nextId.current,
+                text,
+                checked: false,
+            };
+            setTodos(todos.concat(todo));
+            nextId.current += 1;
+        },
+        [todos]
+    );
     return (
         <div>
             <TodoTemplate>
-                <TodoInsert />
+                <TodoInsert onInsert={onInsert} />
                 <TodoList todos={todos} />
             </TodoTemplate>
         </div>
