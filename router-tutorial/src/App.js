@@ -1,11 +1,15 @@
-// 1. yarn add 'react-router-dom'
-// 2. index.js => BrowserRouter 라이브러리 추가 및 App 태그 감싸기
-// 3. Route,Routes 라이브러리 소환
-// 4. <Router path="주소 규칙" element={보여줄 컴포넌트} />
+// 페이지 주소 정의 시 유동적인 값을 넣을때가 있음
+// 1. URL 파라미터 /profile/velopert
+// 2. 쿼리스트링 /articles?page=1&keyword=react
+
+// 1번은 경로에 유동적인 값 넣음(ID/이름으로 특정 데이터 조회시 사용)
+// 2번은 주소 뒷부분에 ? 문자열 이후 key=value 값을 정의하면 &로 구분한형태
+// (키워드 검색, 페이지네이션 등 데이터 조회에 필요한 옵션 전달)
 
 import { Route, Routes } from "react-router-dom";
 import About from "./pages/About.js";
 import Home from "./pages/Home.js";
+import Profile from "./pages/Profile.js";
 
 const App = () => {
     return (
@@ -13,6 +17,11 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/profile/:username" element={<Profile />} />
+                {/* Route path="/profiles/:username"
+                파라미터는 :를 사용하여 설정
+                여러개일 경우
+                /:a/:b */}
             </Routes>
         </div>
     );
