@@ -1,7 +1,7 @@
-// newsapi south-korea에서 헤드라인만 정보 따오기
-
 import { useState } from "react";
 import axios from "axios";
+import NewsItem from "./components/NewsItem";
+import NewsList from "./components/NewsList";
 
 const App = () => {
     const [data, setData] = useState(null);
