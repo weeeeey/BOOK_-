@@ -1,5 +1,8 @@
-// 공통 레이아웃 컴포넌트
-// 중첩을 이용한 공통 요소 보여주기
+// 라우팅 관련 작업시 리액트 라우터가 제공하는 유용한 API들
+// useNavigate
+// NavLink
+// 와일드카드 *
+// Navigate
 
 import { Route, Routes } from "react-router-dom";
 import About from "./pages/About.js";
