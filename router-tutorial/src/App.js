@@ -11,6 +11,7 @@ import Profile from "./pages/Profile.js";
 import Articles from "./pages/Articles.js";
 import Article from "./pages/Article.js";
 import Layout from "./pages/Layout.js";
+import NotFound from "./pages/NotFound.js";
 
 const App = () => {
     return (
@@ -21,7 +22,11 @@ const App = () => {
                     <Route path="/about" element={<About />} />
                     <Route path="/profile/:username" element={<Profile />} />
                 </Route>
-                <Route path="/articles/" element={<Articles />}></Route>
+                <Route path="/articles/" element={<Articles />}>
+                    <Route path=":id" element={<Article />} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+                {/* 경로를 다 찾아보고 맞지 않는 것은 NotFound 출력 */}
             </Routes>
         </div>
     );
