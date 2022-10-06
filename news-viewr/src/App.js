@@ -1,8 +1,5 @@
-// async 를 사용해서 axois 처리
-// async 는 promise에 대해 보완해주는거
-// promise를 사용하는 함수 정의 하는 곳 앞에 async 붙여주고(onClick)
-// promise 함수 앞에 await 붙여주면 됨 (여기서는 axios => promise 기반이므로)
-// try catch
+// newsapi south-korea에서 헤드라인만 정보 따오기
+
 import { useState } from "react";
 import axios from "axios";
 
@@ -11,7 +8,7 @@ const App = () => {
     const onClick = async () => {
         try {
             const response = await axios.get(
-                "https://jsonplaceholder.typicode.com/todos/1"
+                "https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=7365517dd52a4abe872de70fae706cfe"
             );
             setData(response.data);
         } catch (a) {
@@ -25,11 +22,7 @@ const App = () => {
                 <button onClick={onClick}>불러오기</button>
             </div>
             {data && (
-                <textarea
-                    rows={7}
-                    value={JSON.stringify(data, null, 2)}
-                    readOnly={true}
-                />
+                <textarea rows={10} value={JSON.stringify(data, null, 2)} />
             )}
         </div>
     );
