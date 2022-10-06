@@ -18,10 +18,6 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/profile/:username" element={<Profile />} />
-                {/* Route path="/profiles/:username"
-                파라미터는 :를 사용하여 설정
-                여러개일 경우
-                /:a/:b */}
             </Routes>
         </div>
     );
