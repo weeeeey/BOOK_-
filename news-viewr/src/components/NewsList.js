@@ -26,7 +26,8 @@ const sampleArticle = {
 };
 const NewsList = () => {
     const [articles, setArticles] = useState(null);
-    const [loading, setLoading] = useState(null);
+    const [loading, setLoading] = useState(false);
+    // useEffect에 직접적으로 async 붙이면 안되고 그 안에 쓰이는 함수에게 붙여야함
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -41,8 +42,10 @@ const NewsList = () => {
             setLoading(false);
         };
         fetchData();
+        // 함수 실행
     }, []);
 
+    // fetchData()를 실행하면 처음에는 true 여서 대기중 뜨다가 비동기 실행 후 false로 변환
     if (loading) {
         return <NewsListBlock>대기중</NewsListBlock>;
     }
