@@ -14,7 +14,7 @@ const Home = () => {
             <p>가장 먼저 보여지는 페이지</p>
             <ul>
                 <li>
-                    <Link to="./about">소개</Link>
+                    <Link to="/about">소개</Link>
                 </li>
                 <li>
                     <Link to="./profile/velopert">velopert의 프로필</Link>
