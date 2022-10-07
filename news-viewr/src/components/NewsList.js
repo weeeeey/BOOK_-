@@ -18,23 +18,24 @@ const NewsListBlock = styled.div`
     }
 `;
 
-const sampleArticle = {
-    title: "제목",
-    description: "내용",
-    url: "https://google.com",
-    urlToImage: "https://via.placeholder.com/160",
-};
+// const sampleArticle = {
+//     title: "제목",
+//     description: "내용",
+//     url: "https://google.com",
+//     urlToImage: "https://via.placeholder.com/160",
+// };
 
-const NewsList = () => {
+const NewsList = ({ category }) => {
     const [articles, setArticles] = useState(null);
     const [loading, setLoading] = useState(false);
-    // useEffect에 직접적으로 async 붙이면 안되고 그 안에 쓰이는 함수에게 붙여야함
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             try {
+                // App에서 넘겨준 인자를 기준으로 all이 아니라면 주소에 &category=컨텐츠 를 붙여서 데려온다
+                const query = category === "all" ? "" : `&category=${category}`;
                 const response = await axios.get(
-                    "https://newsapi.org/v2/top-headlines?country=kr&category=business&apiKey=7365517dd52a4abe872de70fae706cfe"
+                    `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=7365517dd52a4abe872de70fae706cfe`
                 );
                 setArticles(response.data.articles);
             } catch (e) {
@@ -43,10 +44,9 @@ const NewsList = () => {
             setLoading(false);
         };
         fetchData();
-        // 함수 실행
-    }, []);
-
-    // fetchData()를 실행하면 처음에는 true 여서 대기중 뜨다가 비동기 실행 후 false로 변환
+    }, [category]);
+    // useEffect 이므로 빈 배열을 넘겨주면 처음에만 렌더링 하고 그 뒤 안한다.
+    // 따라서 category가 변할 때마다 렌더링 해야 하므로 categroy에 의존하게 넣어준다
     if (loading) {
         return <NewsListBlock>대기중</NewsListBlock>;
     }

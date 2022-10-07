@@ -11,6 +11,7 @@ const App = () => {
         <div>
             <Categories category={category} onSelect={onSelect} />
             <NewsList category={category} />
+            {/* 해당하는 카테고리 뉴스들 긁어오기 위해 뉴스 컴포넌트에도 props 전달 */}
         </div>
     );
 };
