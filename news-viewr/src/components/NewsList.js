@@ -24,6 +24,7 @@ const sampleArticle = {
     url: "https://google.com",
     urlToImage: "https://via.placeholder.com/160",
 };
+
 const NewsList = () => {
     const [articles, setArticles] = useState(null);
     const [loading, setLoading] = useState(false);
