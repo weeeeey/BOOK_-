@@ -1,23 +1,25 @@
-import ColorContext from "../constexts/color";
+import { useContext } from "react";
+import ColorContext from "../constexts/Color";
 
 const ColorBox = () => {
+    const { state } = useContext(ColorContext);
     return (
-        // Consumer는 Context의 변화를 구독하는 컴포넌트
-        // Consumer 사이에 중괄호를 열어서 함수를 넣어줌
-        // 이러한 패턴을 Function as a child 혹은 Render Props 라고 함
-        // children 자리에 일반 JSX나 문자열이 아닌 [함수]를 전달
-
-        <ColorContext.Consumer>
-            {(value) => (
-                <div
-                    style={{
-                        width: "64px",
-                        height: "64px",
-                        background: value.color,
-                    }}
-                />
-            )}
-        </ColorContext.Consumer>
+        <>
+            <div
+                style={{
+                    width: "64px",
+                    height: "64px",
+                    background: state.color,
+                }}
+            />
+            <div
+                style={{
+                    width: "32px",
+                    height: "32px",
+                    background: state.subcolor,
+                }}
+            />
+        </>
     );
 };
 
