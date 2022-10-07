@@ -1,4 +1,5 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const CategoriesBlock = styled.div`
     display: flex;
@@ -11,7 +12,11 @@ const CategoriesBlock = styled.div`
     }
 `;
 
-const Category = styled.div`
+// div 같은 일반 HTML 요소가 아닌 컴포넌트에 styled-component를 적용 시킬떄는
+// styled(컴포넌트 이름)`` 으로 사용
+
+// NavLink로 만들어진 Category 컴포넌트
+const Category = styled(NavLink)`
     font-size: 1.125rem;
     cursor: pointer;
     white-space: pre;
@@ -22,17 +27,14 @@ const Category = styled.div`
     &:hover {
         color: #495057;
     }
-    ${(props) =>
-        props.active &&
-        css`
-            font-weight: 600;
-            border-bottom: 2px solid #22b8cf;
-            color: #22b8cf;
-            &:hover {
-                color: #3bc9db;
-            }
-        `}
-
+    &.active {
+        font-weight: 600;
+        border-bottom: 2px solid #22b8cf;
+        color: #22b8cf;
+        &:hover {
+            color: #3bc9db;
+        }
+    }
     & + & {
         margin-left: 1rem;
     }
@@ -69,14 +71,18 @@ const categories = [
     },
 ];
 
-const Categories = ({ onSelect, category }) => {
+const Categories = () => {
     return (
         <CategoriesBlock>
             {categories.map((c) => (
                 <Category
                     key={c.name}
-                    active={category === c.name}
-                    onClick={() => onSelect(c.name)}
+                    className={({ isActive }) =>
+                        isActive ? "active" : undefined
+                    }
+                    to={c.name === "all" ? "/" : `/${c.name}`}
+                    // 카테고리 렌더링 후 to 속성에 정의해둔 URL로 이동한단
+                    // NavLink : 현재 url과 이동할 url이 같을 경우 style 속성 추가 가능하다는 특징
                 >
                     {c.text}
                 </Category>
