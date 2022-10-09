@@ -7,15 +7,15 @@ const ColorBox = () => {
         <>
             <div
                 style={{
-                    width: "64px",
-                    height: "64px",
+                    width: "128px",
+                    height: "128px",
                     background: state.color,
                 }}
             />
             <div
                 style={{
-                    width: "32px",
-                    height: "32px",
+                    width: "64px",
+                    height: "64px",
                     background: state.subcolor,
                 }}
             />
