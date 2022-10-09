@@ -20,7 +20,7 @@ const Todos = ({
     };
     return (
         <div>
-            <form onSubmit={onsubmit}>
+            <form onSubmit={onSubmit}>
                 <input />
                 <button type="submit">등록</button>
             </form>
