@@ -8,13 +8,13 @@
 // 1. props를 받아와서 화면에 보여주는 컴포넌트
 // 2. 리덕스와 연동되어 있는 컴포넌트. 리덕스로부터 상태를 받아오거나 스토어에 액션을 디스패치하기도 함
 
-import Counter from "./components/Counter";
+import CounterContainer from "./containers/CounterContainer";
 import Todos from "./components/Todo";
 
 const App = () => {
     return (
         <div>
-            <Counter number={0} />
+            <CounterContainer {12} />
             <hr />
             <Todos />
         </div>
