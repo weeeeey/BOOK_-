@@ -15,6 +15,9 @@ const colors = [
 
 class SelectColors extends Component {
     static contextType = ColorContext;
+    // 이렇게 static을 잡아주면 this.conext를 조회했을때
+    // 현재 Context의 value를 가리키게 된다
+    // 만약 setColor를 호출하고 싶다면 this.context.actions.setColor를 호출하면 됨
 
     handleSetColor = (color) => {
         this.context.actions.setColor(color);
