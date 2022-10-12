@@ -10,10 +10,25 @@
 // 2번 파라미터: action 생성 함수를 컴포넌트의 props로 넘겨주기 위해 설정하는 함수
 // connet 함수 호출 시 또 다른 함수 반환해줌. 그 뒤 연동할 컴포넌트를 파라미터로 넘어줌으로 리덕스와 연동된 컴포넌트를 만듬
 
+import { connect } from "react-redux";
 import Counter from "../components/Counter";
 
-const CounterContainer = () => {
-    return <Counter />;
+const CounterContainer = ({ number, increase, decrease }) => {
+    return (
+        <Counter number={number} onIncrease={increase} onDecrease={decrease} />
+    );
 };
 
-export default CounterContainer;
+const mapStateToProps = (state) => ({
+    number: state.counter.number,
+});
+const mapDispatchToProps = (dispatch) => ({
+    increase: () => {
+        console.log("increase");
+    },
+    decrease: () => {
+        console.log("dec");
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CounterContainer);
