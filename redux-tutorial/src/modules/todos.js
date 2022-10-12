@@ -3,7 +3,7 @@ const INSERT = "todos/INSERT";
 const TOGGLE = "todos/TOGGLE";
 const REMOVE = "todos/REMOVE";
 
-export const changeinput = (input) => ({
+export const changeInput = (input) => ({
     type: CHANGE_INPUT,
     input,
 });
