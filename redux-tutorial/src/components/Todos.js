@@ -7,6 +7,7 @@ const TodoItem = ({ todo, onToggle, onRemove }) => {
         </div>
     );
 };
+
 const Todos = ({
     input,
     todos,
@@ -25,8 +26,6 @@ const Todos = ({
                 <button type="submit">등록</button>
             </form>
             <div>
-                <TodoItem />
-                <TodoItem />
                 <TodoItem />
                 <TodoItem />
             </div>
