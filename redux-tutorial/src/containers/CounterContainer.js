@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-// connect 대신에 useSelector 사용해보기
+// connect 대신에 useSelector, useDispatch 사용해보기
 // import { connect } from "react-redux";
 import Counter from "../components/Counter";
 import { increase, decrease } from "../modules/counter";
